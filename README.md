@@ -12,7 +12,7 @@ Refactor realizado com o objetivo de realizar a persistência de dados de Notas 
 ### Setup das alterações realizadas
 
 Para realizar o teste das atividades desenvolvidas é necessário realizar os seguintes passos abaixo listados:
-* Já existindo o banco de dados do projeto inicial criado execute os seguintes scripts localizados na pasta `TesteImposto/SQL/ATUALIZACOES` **ALTERAR_TB_NOTA_FISCAL_ITEM**, **ALTERAR_TB_NOTA_FISCAL_ITEM** e **P_CONSULTA_NOTA_FISCAL_ITEM**, na respectiva ordem.
+* Já existindo o banco de dados do projeto inicial criado execute os seguintes scripts localizados na pasta `TesteImposto/SQL/ATUALIZACOES` **ALTERAR_TB_NOTA_FISCAL_ITEM**, **ALTERAR_P_NOTA_FISCAL_ITEM** e **P_CONSULTA_NOTA_FISCAL_ITEM**, na respectiva ordem.
 * Definir o diretório para a gravação dos XML's das notas fiscais emitidas. A definição desse diretório deverá ser feita no arquivo `App.config`, localizado na pasta `TesteImposto`
 * Definir a string de conexão para o banco de dados no arquivo `App.config`, localizado no diretório já mencionado no item acima. Para o caso de o banco de dados de teste estar configurado localmente com o SQLEXPRESS, então não há necessidade de alterações.
 
