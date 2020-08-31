@@ -47,6 +47,7 @@ namespace Imposto.Core.Service.Implementation
         {
             var notaFiscal = new NotaFiscal
             {
+                Id = _notaFiscalRepository.GetNextIdNotaFiscal(),
                 NumeroNotaFiscal = _notaFiscalRepository.GetNextNumeroNotaFiscal(),
                 Serie = new Random().Next(int.MaxValue),
                 NomeCliente = pedido.NomeCliente,
@@ -55,12 +56,14 @@ namespace Imposto.Core.Service.Implementation
                 EstadoOrigem = pedido.EstadoOrigem,
             };
 
+            var idNotaFiscalItem = _notaFiscalRepository.GetLastIdNotaFiscalItem();
+
             var desconto = UF.IsSudeste(notaFiscal.EstadoDestino) ? 0.10 : 0.00;
             var cfop = DefinirCfop(notaFiscal.EstadoOrigem, notaFiscal.EstadoDestino);
 
             foreach (var itemPedido in pedido.ItensDoPedido)
             {
-                var notaFiscalItem = new NotaFiscalItem { Cfop = cfop };
+                var notaFiscalItem = new NotaFiscalItem() { Id = idNotaFiscalItem++, IdNotaFiscal = notaFiscal.Id, Cfop = cfop };
 
                 if (notaFiscal.EstadoDestino == notaFiscal.EstadoOrigem)
                 {

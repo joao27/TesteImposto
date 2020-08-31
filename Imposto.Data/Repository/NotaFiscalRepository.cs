@@ -61,5 +61,9 @@ namespace Imposto.Data.Repository
         }
 
         public int GetNextNumeroNotaFiscal() => Query<int>("SELECT TOP 1 (NUMERONOTAFISCAL + 1) FROM NOTAFISCAL ORDER BY ID DESC");
+        
+        public int GetNextIdNotaFiscal() => Query<int>("SELECT TOP 1 (ID + 1) FROM NOTAFISCAL ORDER BY ID DESC");
+
+        public int GetLastIdNotaFiscalItem() => Query<int>("SELECT TOP 1 ID FROM NOTAFISCALITEM ORDER BY ID DESC");
     }
 }
