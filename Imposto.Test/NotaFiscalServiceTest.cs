@@ -30,6 +30,11 @@ namespace Imposto.Test
             pedido.ItensDoPedido.Add(A.Dummy<PedidoItem>());
 
             A.CallTo(() => _xmlWriter.Record(A<string>.Ignored, A<NotaFiscal>.Ignored)).Returns(true);
+
+            A.CallTo(() => _notaFiscalRepository.GetNextIdNotaFiscal()).Returns(A.Dummy<int>());
+
+            A.CallTo(() => _notaFiscalRepository.GetLastIdNotaFiscalItem()).Returns(A.Dummy<int>());
+
             A.CallTo(() => _notaFiscalRepository.InsertNotaFiscal(A<int>.Ignored, A<int>.Ignored, 
                 A<string>.Ignored, A<string>.Ignored, A<string>.Ignored)).Returns(1);
 
@@ -41,6 +46,13 @@ namespace Imposto.Test
             var result = notaFiscalService.GerarNotaFiscal(pedido);
 
             // assert
+            A.CallTo(() => _xmlWriter.Record(A<string>.Ignored, A<NotaFiscal>.Ignored))
+                .MustHaveHappenedOnceExactly();
+
+            A.CallTo(() => _notaFiscalRepository.GetNextIdNotaFiscal()).MustHaveHappenedOnceExactly();
+
+            A.CallTo(() => _notaFiscalRepository.GetLastIdNotaFiscalItem()).MustHaveHappenedOnceExactly();
+
             A.CallTo(() => _notaFiscalRepository.InsertNotaFiscal(A<int>.Ignored, A<int>.Ignored,
                 A<string>.Ignored, A<string>.Ignored, A<string>.Ignored)).MustHaveHappenedOnceExactly();
 
@@ -60,11 +72,24 @@ namespace Imposto.Test
 
             A.CallTo(() => _xmlWriter.Record(A<string>.Ignored, A<NotaFiscal>.Ignored)).Returns(false);
 
+            A.CallTo(() => _notaFiscalRepository.GetNextIdNotaFiscal()).Returns(A.Dummy<int>());
+
+            A.CallTo(() => _notaFiscalRepository.GetLastIdNotaFiscalItem()).Returns(A.Dummy<int>());
+
             // act
             var notaFiscalService = new NotaFiscalService(_xmlWriter, _notaFiscalRepository);
             var result = notaFiscalService.GerarNotaFiscal(pedido);
 
             // assert
+            A.CallTo(() => _xmlWriter.Record(A<string>.Ignored, A<NotaFiscal>.Ignored))
+                .MustHaveHappenedOnceExactly();
+
+            A.CallTo(() => _notaFiscalRepository.GetNextIdNotaFiscal())
+                .MustHaveHappenedOnceExactly();
+
+            A.CallTo(() => _notaFiscalRepository.GetLastIdNotaFiscalItem())
+                .MustHaveHappenedOnceExactly();
+
             A.CallTo(() => _notaFiscalRepository.InsertNotaFiscal(A<int>.Ignored, A<int>.Ignored,
                 A<string>.Ignored, A<string>.Ignored, A<string>.Ignored)).MustNotHaveHappened();
 
